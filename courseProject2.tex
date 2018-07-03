@@ -1,0 +1,444 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdftitle={Reproducible Research Course Project},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\newcommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+
+  \title{Reproducible Research Course Project}
+    \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+    \author{}
+    \preauthor{}\postauthor{}
+    \date{}
+    \predate{}\postdate{}
+  
+
+\begin{document}
+\maketitle
+
+\emph{This project is to explore the NOAA Storm Database and answer some
+basic questions about severe weather events} \emph{It involves exploring
+the U.S. National Oceanic and Atmospheric Administration's (NOAA) storm
+database. This database tracks characteristics of major storms and
+weather events in the United States, including when and where they
+occur, as well as estimates of any fatalities, injuries, and property
+damage. } \# Sysnopis \emph{This is an R Markdown document which is used
+to analyze the
+\href{https://d396qusza40orc.cloudfront.net/repdata\%2Fdata\%2FStormData.csv.bz2}{Storm
+Data} based on the
+\href{https://d396qusza40orc.cloudfront.net/repdata\%2Fpeer2_doc\%2Fpd01016005curr.pdf}{National
+Weather Service Storm Data}. The document is focus in answering the two
+questions:}
+
+\begin{itemize}
+\item
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \tightlist
+  \item
+    Across the United States, which types of events (as indicated in the
+    EVTYPE variable) are most harmful with respect to population
+    health?*
+  \end{enumerate}
+\item
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \setcounter{enumi}{1}
+  \tightlist
+  \item
+    Across the United States, which types of events have the greatest
+    economic consequences?*
+  \end{enumerate}
+\item
+  The basic goal of this document is to explore the NOAA Storm Database
+  and understand some basic concepts about weather events.*
+\end{itemize}
+
+\section{Loading libraries}\label{loading-libraries}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(plyr)}
+\end{Highlighting}
+\end{Shaded}
+
+\section{Data processing}\label{data-processing}
+
+\section{Loading data}\label{loading-data}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{url1<-}\StringTok{ "https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2FStormData.csv.bz2"}
+
+\ControlFlowTok{if}\NormalTok{ (}\OperatorTok{!}\KeywordTok{file.exists}\NormalTok{(}\StringTok{'repdata-data-StormData.csv'}\NormalTok{)) \{}
+\KeywordTok{download.file}\NormalTok{(url1, }\StringTok{"repdata-data-StormData.csv.bz2"}\NormalTok{)}
+\NormalTok{\}}
+\NormalTok{stormData <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\StringTok{"repdata-data-StormData.csv.bz2"}\NormalTok{, }\DataTypeTok{header =} \OtherTok{TRUE}\NormalTok{, }\DataTypeTok{stringsAsFactors =} \OtherTok{FALSE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\section{Checking data}\label{checking-data}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(stormData)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##     STATE__       BGN_DATE           BGN_TIME          TIME_ZONE        
+##  Min.   : 1.0   Length:902297      Length:902297      Length:902297     
+##  1st Qu.:19.0   Class :character   Class :character   Class :character  
+##  Median :30.0   Mode  :character   Mode  :character   Mode  :character  
+##  Mean   :31.2                                                           
+##  3rd Qu.:45.0                                                           
+##  Max.   :95.0                                                           
+##                                                                         
+##      COUNTY       COUNTYNAME           STATE              EVTYPE         
+##  Min.   :  0.0   Length:902297      Length:902297      Length:902297     
+##  1st Qu.: 31.0   Class :character   Class :character   Class :character  
+##  Median : 75.0   Mode  :character   Mode  :character   Mode  :character  
+##  Mean   :100.6                                                           
+##  3rd Qu.:131.0                                                           
+##  Max.   :873.0                                                           
+##                                                                          
+##    BGN_RANGE          BGN_AZI           BGN_LOCATI       
+##  Min.   :   0.000   Length:902297      Length:902297     
+##  1st Qu.:   0.000   Class :character   Class :character  
+##  Median :   0.000   Mode  :character   Mode  :character  
+##  Mean   :   1.484                                        
+##  3rd Qu.:   1.000                                        
+##  Max.   :3749.000                                        
+##                                                          
+##    END_DATE           END_TIME           COUNTY_END COUNTYENDN    
+##  Length:902297      Length:902297      Min.   :0    Mode:logical  
+##  Class :character   Class :character   1st Qu.:0    NA's:902297   
+##  Mode  :character   Mode  :character   Median :0                  
+##                                        Mean   :0                  
+##                                        3rd Qu.:0                  
+##                                        Max.   :0                  
+##                                                                   
+##    END_RANGE          END_AZI           END_LOCATI       
+##  Min.   :  0.0000   Length:902297      Length:902297     
+##  1st Qu.:  0.0000   Class :character   Class :character  
+##  Median :  0.0000   Mode  :character   Mode  :character  
+##  Mean   :  0.9862                                        
+##  3rd Qu.:  0.0000                                        
+##  Max.   :925.0000                                        
+##                                                          
+##      LENGTH              WIDTH                F               MAG         
+##  Min.   :   0.0000   Min.   :   0.000   Min.   :0.0      Min.   :    0.0  
+##  1st Qu.:   0.0000   1st Qu.:   0.000   1st Qu.:0.0      1st Qu.:    0.0  
+##  Median :   0.0000   Median :   0.000   Median :1.0      Median :   50.0  
+##  Mean   :   0.2301   Mean   :   7.503   Mean   :0.9      Mean   :   46.9  
+##  3rd Qu.:   0.0000   3rd Qu.:   0.000   3rd Qu.:1.0      3rd Qu.:   75.0  
+##  Max.   :2315.0000   Max.   :4400.000   Max.   :5.0      Max.   :22000.0  
+##                                         NA's   :843563                    
+##    FATALITIES          INJURIES            PROPDMG       
+##  Min.   :  0.0000   Min.   :   0.0000   Min.   :   0.00  
+##  1st Qu.:  0.0000   1st Qu.:   0.0000   1st Qu.:   0.00  
+##  Median :  0.0000   Median :   0.0000   Median :   0.00  
+##  Mean   :  0.0168   Mean   :   0.1557   Mean   :  12.06  
+##  3rd Qu.:  0.0000   3rd Qu.:   0.0000   3rd Qu.:   0.50  
+##  Max.   :583.0000   Max.   :1700.0000   Max.   :5000.00  
+##                                                          
+##   PROPDMGEXP           CROPDMG         CROPDMGEXP       
+##  Length:902297      Min.   :  0.000   Length:902297     
+##  Class :character   1st Qu.:  0.000   Class :character  
+##  Mode  :character   Median :  0.000   Mode  :character  
+##                     Mean   :  1.527                     
+##                     3rd Qu.:  0.000                     
+##                     Max.   :990.000                     
+##                                                         
+##      WFO             STATEOFFIC         ZONENAMES            LATITUDE   
+##  Length:902297      Length:902297      Length:902297      Min.   :   0  
+##  Class :character   Class :character   Class :character   1st Qu.:2802  
+##  Mode  :character   Mode  :character   Mode  :character   Median :3540  
+##                                                           Mean   :2875  
+##                                                           3rd Qu.:4019  
+##                                                           Max.   :9706  
+##                                                           NA's   :47    
+##    LONGITUDE        LATITUDE_E     LONGITUDE_       REMARKS         
+##  Min.   :-14451   Min.   :   0   Min.   :-14455   Length:902297     
+##  1st Qu.:  7247   1st Qu.:   0   1st Qu.:     0   Class :character  
+##  Median :  8707   Median :   0   Median :     0   Mode  :character  
+##  Mean   :  6940   Mean   :1452   Mean   :  3509                     
+##  3rd Qu.:  9605   3rd Qu.:3549   3rd Qu.:  8735                     
+##  Max.   : 17124   Max.   :9706   Max.   :106220                     
+##                   NA's   :40                                        
+##      REFNUM      
+##  Min.   :     1  
+##  1st Qu.:225575  
+##  Median :451149  
+##  Mean   :451149  
+##  3rd Qu.:676723  
+##  Max.   :902297  
+## 
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{names}\NormalTok{(stormData) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] "STATE__"    "BGN_DATE"   "BGN_TIME"   "TIME_ZONE"  "COUNTY"    
+##  [6] "COUNTYNAME" "STATE"      "EVTYPE"     "BGN_RANGE"  "BGN_AZI"   
+## [11] "BGN_LOCATI" "END_DATE"   "END_TIME"   "COUNTY_END" "COUNTYENDN"
+## [16] "END_RANGE"  "END_AZI"    "END_LOCATI" "LENGTH"     "WIDTH"     
+## [21] "F"          "MAG"        "FATALITIES" "INJURIES"   "PROPDMG"   
+## [26] "PROPDMGEXP" "CROPDMG"    "CROPDMGEXP" "WFO"        "STATEOFFIC"
+## [31] "ZONENAMES"  "LATITUDE"   "LONGITUDE"  "LATITUDE_E" "LONGITUDE_"
+## [36] "REMARKS"    "REFNUM"
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  Get subset of the \url{data:*}
+\item
+  column 8 labeled EVTYPE: Type of Event recorded *
+\item
+  Column 23 labeled FATALITIES: Number of fatalities recorded *
+\item
+  column 24 labeled INJURIES: Number of injuries recorded*
+\item
+  Column 25 \& 26, labeled PROPDMG \& PROPDMGEP: Amount of property
+  damage recorded *
+\item
+  ColumnS 27 \& 28 labeled CROPDMG \& CROPDMGEXP:Amount of crop damage
+  recorded *
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df <-}\StringTok{ }\KeywordTok{subset}\NormalTok{(stormData[,}\KeywordTok{c}\NormalTok{(}\DecValTok{8}\NormalTok{,}\DecValTok{23}\NormalTok{,}\DecValTok{24}\NormalTok{,}\DecValTok{25}\NormalTok{,}\DecValTok{26}\NormalTok{,}\DecValTok{27}\NormalTok{,}\DecValTok{28}\NormalTok{)])}
+\NormalTok{code <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"h"}\NormalTok{,}\StringTok{"H"}\NormalTok{,}\StringTok{"k"}\NormalTok{,}\StringTok{"K"}\NormalTok{,}\StringTok{"m"}\NormalTok{,}\StringTok{"M"}\NormalTok{,}\StringTok{"b"}\NormalTok{,}\StringTok{"B"}\NormalTok{)}
+\NormalTok{multp <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{100}\NormalTok{, }\DecValTok{100}\NormalTok{,}\DecValTok{1000}\NormalTok{,}\DecValTok{1000}\NormalTok{,}\DecValTok{1000000}\NormalTok{,}\DecValTok{1000000}\NormalTok{,}\DecValTok{1000000000}\NormalTok{,}\DecValTok{1000000000}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\section{Data Analysis}\label{data-analysis}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df <-}\StringTok{ }\KeywordTok{mutate}\NormalTok{(df, }\DataTypeTok{PROPDMGx =} \KeywordTok{as.numeric}\NormalTok{(}\KeywordTok{ifelse}\NormalTok{(PROPDMGEXP }\OperatorTok{%in%}\StringTok{ }\NormalTok{code,multp,}\DecValTok{0}\NormalTok{)))}
+\NormalTok{df <-}\StringTok{ }\KeywordTok{mutate}\NormalTok{(df, }\DataTypeTok{CROPDMGx =} \KeywordTok{as.numeric}\NormalTok{(}\KeywordTok{ifelse}\NormalTok{(CROPDMGEXP }\OperatorTok{%in%}\StringTok{ }\NormalTok{code,multp,}\DecValTok{0}\NormalTok{)))}
+\NormalTok{df}\OperatorTok{$}\NormalTok{PROPDMGEXP.}\DecValTok{0}\NormalTok{ <-}\StringTok{ }\NormalTok{df}\OperatorTok{$}\NormalTok{PROPDMG }\OperatorTok{*}\StringTok{ }\NormalTok{df}\OperatorTok{$}\NormalTok{PROPDMGx}
+\NormalTok{df}\OperatorTok{$}\NormalTok{CROPDMGEXP.}\DecValTok{0}\NormalTok{ <-}\StringTok{ }\NormalTok{df}\OperatorTok{$}\NormalTok{CROPDMG }\OperatorTok{*}\StringTok{ }\NormalTok{df}\OperatorTok{$}\NormalTok{CROPDMGx}
+\NormalTok{df <-}\StringTok{ }\KeywordTok{mutate}\NormalTok{(df, }\DataTypeTok{HARM =}\NormalTok{ FATALITIES }\OperatorTok{+}\StringTok{ }\NormalTok{INJURIES)}
+\NormalTok{df <-}\StringTok{ }\KeywordTok{mutate}\NormalTok{(df, }\DataTypeTok{EXPENSE =}\NormalTok{ PROPDMGEXP.}\DecValTok{0} \OperatorTok{+}\StringTok{ }\NormalTok{CROPDMGEXP.}\DecValTok{0}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\section{Results}\label{results}
+
+\emph{With the data processing completed, the impact of the weather
+events was analyzed using the new summary fields HARM and EXPENSE.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{totHarmByEVT<-}\KeywordTok{aggregate}\NormalTok{(df}\OperatorTok{$}\NormalTok{HARM, }\KeywordTok{list}\NormalTok{(df}\OperatorTok{$}\NormalTok{EVTYPE), sum) }\CommentTok{# summarize harm by type}
+\KeywordTok{names}\NormalTok{(totHarmByEVT) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"EventType"}\NormalTok{, }\StringTok{"TotHarm"}\NormalTok{) }\CommentTok{# name columns}
+\NormalTok{totHarmByEVT<-totHarmByEVT[}\KeywordTok{order}\NormalTok{(}\OperatorTok{-}\NormalTok{totHarmByEVT}\OperatorTok{$}\NormalTok{TotHarm),] }\CommentTok{# sort descending}
+
+\NormalTok{topTotHarm <-}\StringTok{ }\KeywordTok{subset}\NormalTok{(totHarmByEVT[}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{,]) }
+\end{Highlighting}
+\end{Shaded}
+
+\emph{Analyz economic affect }
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{totExpByEVT<-}\KeywordTok{aggregate}\NormalTok{(df}\OperatorTok{$}\NormalTok{EXPENSE, }\KeywordTok{list}\NormalTok{(df}\OperatorTok{$}\NormalTok{EVTYPE), sum)}
+\KeywordTok{names}\NormalTok{(totExpByEVT) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"EventType"}\NormalTok{, }\StringTok{"TotExpense"}\NormalTok{)}
+\NormalTok{totExpByEVT<-totExpByEVT[}\KeywordTok{order}\NormalTok{(}\OperatorTok{-}\NormalTok{totExpByEVT}\OperatorTok{$}\NormalTok{TotExpense),]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\tightlist
+\item
+  subset to top five events by expense*
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{topTotExp <-}\StringTok{ }\KeywordTok{subset}\NormalTok{(totExpByEVT[}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{,])}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{convert expense amounts to
+Billions}\label{convert-expense-amounts-to-billions}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{topTotExp}\OperatorTok{$}\NormalTok{TotExpense<-topTotExp[,}\DecValTok{2}\NormalTok{]}\OperatorTok{/}\DecValTok{1000000000}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{Next, the damage impacts were plotted for each domain of `Impact
+to Human Health' (HARM) and `Economic Impact' (EXPENSE) Code for
+plotting weather event impact}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(ggplot2)}
+\KeywordTok{library}\NormalTok{(scales)}
+\KeywordTok{library}\NormalTok{(gridExtra)}
+\end{Highlighting}
+\end{Shaded}
+
+\section{Health}\label{health}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{figureH <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(topTotHarm, }\KeywordTok{aes}\NormalTok{(EventType))}
+\NormalTok{figureH <-}\StringTok{ }\NormalTok{figureH }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_bar}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{weight =}\NormalTok{ TotHarm, }\DataTypeTok{fill =} \StringTok{"cyan"}\NormalTok{, }\DataTypeTok{col =} \StringTok{"black"}\NormalTok{)) }\OperatorTok{+}
+\StringTok{        }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{axis.text.x =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{angle =} \DecValTok{90}\NormalTok{, }\DataTypeTok{hjust =} \DecValTok{1}\NormalTok{))}\OperatorTok{+}
+\StringTok{        }\KeywordTok{scale_y_continuous}\NormalTok{(}\DataTypeTok{label =}\NormalTok{ comma) }\OperatorTok{+}\StringTok{ }
+\StringTok{        }\KeywordTok{ggtitle}\NormalTok{(}\StringTok{"Population Health Impact by Event Type"}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{        }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.position =} \StringTok{"none"}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{        }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{x =} \StringTok{"Event Type"}\NormalTok{, }\DataTypeTok{y =} \StringTok{"Fatalities + Injuries"}\NormalTok{) }
+\NormalTok{figureH}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{courseProject2_files/figure-latex/unnamed-chunk-11-1.pdf}
+\#Economic
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{FigureE <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(topTotExp, }\KeywordTok{aes}\NormalTok{(EventType))}
+\NormalTok{FigureE <-}\StringTok{ }\NormalTok{FigureE }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_bar}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{weight =}\NormalTok{ TotExpense, }\DataTypeTok{fill =} \StringTok{"white"}\NormalTok{, }\DataTypeTok{col=}\StringTok{"black"}\NormalTok{)) }\OperatorTok{+}
+\StringTok{        }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{axis.text.x =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{angle =} \DecValTok{90}\NormalTok{, }\DataTypeTok{hjust =} \DecValTok{1}\NormalTok{))}\OperatorTok{+}
+\StringTok{        }\KeywordTok{scale_y_continuous}\NormalTok{(}\DataTypeTok{label =}\NormalTok{ comma) }\OperatorTok{+}\StringTok{ }
+\StringTok{        }\KeywordTok{ggtitle}\NormalTok{(}\StringTok{"Damage Expense Impact by Event Type"}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{        }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.position =} \StringTok{"none"}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{        }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{x =} \StringTok{"Event Type"}\NormalTok{, }\DataTypeTok{y =} \StringTok{"Property & Crop Expense ($Billions)"}\NormalTok{)}
+\NormalTok{FigureE}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{courseProject2_files/figure-latex/unnamed-chunk-12-1.pdf}
+
+**Conclusion
+
+According to the data analysis result on U.S. National Oceanic and
+Atmospheric Administration's (NOAA) storm database from 1950 to 2011,
+tornados have the greatest impact on both human Health an Economic.
+
+**
+
+
+\end{document}
